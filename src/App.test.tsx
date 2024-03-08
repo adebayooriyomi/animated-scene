@@ -1,32 +1,38 @@
-import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
-import App from './App';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { AnimationScene } from './pages/AnimationScene';
 
 describe('AnimationScene', () => {
-  test('starts with paused animation', () => {
+  test('starts with paused animation', async () => {
     render(<AnimationScene />);
-    const sceneElement = screen.getByTestId('scene');
+    const sceneElement = await screen.findByTestId('scene');
     expect(sceneElement).toHaveClass('pausedAnimation');
   });
 
-  test('play button starts the animation', () => {
+  test('play button starts the animation', async () => {
     render(<AnimationScene />);
     const playButton = screen.getByRole('button', { name: 'Play' });
     fireEvent.click(playButton);
-    const sceneElement = screen.getByTestId('scene');
-    expect(sceneElement).toHaveClass('playingAnimation');
-    expect(sceneElement).not.toHaveClass('pausedAnimation');
+
+    // Use waitFor to wait for the state to update
+    await waitFor(() => {
+      const sceneElement = screen.getByTestId('scene');
+      expect(sceneElement).toHaveClass('playingAnimation');
+      expect(sceneElement).not.toHaveClass('pausedAnimation');
+    });
   });
 
-  test('pause button pauses the animation', () => {
+  test('pause button pauses the animation', async () => {
     render(<AnimationScene />);
     const playButton = screen.getByRole('button', { name: 'Play' });
     fireEvent.click(playButton);
 
     const pauseButton = screen.getByRole('button', { name: 'Pause' });
     fireEvent.click(pauseButton);
-    const sceneElement = screen.getByTestId('scene');
-    expect(sceneElement).toHaveClass('pausedAnimation');
+
+    // Use waitFor to wait for the state to update
+    await waitFor(() => {
+      const sceneElement = screen.getByTestId('scene');
+      expect(sceneElement).toHaveClass('pausedAnimation');
+    });
   });
 });

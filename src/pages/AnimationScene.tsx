@@ -45,7 +45,7 @@ export const AnimationScene: React.FC = () => {
                     transition: 'background 0.5s ease',
                 }}
                 >
-                <h3 data-testid="helloText" className='helloText'>Hello World!</h3>
+                <h3>Hello World!</h3>
             </div>
                 <div className='buttonsContainer'>
                     <Button onClick={playAnimation} disabled={isPlaying}>Play</Button>
