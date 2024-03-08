@@ -31,7 +31,8 @@ export const AnimationScene: React.FC = () => {
         <div>
             <div
                 ref={sceneRef}
-                className={animationClass}
+                data-testid="scene"
+                className={`scene ${animationClass}`}
                 style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -39,12 +40,12 @@ export const AnimationScene: React.FC = () => {
                     width: '400px',
                     height: '400px',
                     margin: '30px',
-                    background: 'brown',
+                    background: 'rgba(159, 48, 72, 1)',
                     color: 'white',
                     transition: 'background 0.5s ease',
                 }}
                 >
-                <h3>Hello World!</h3>
+                <h3 data-testid="helloText" className='helloText'>Hello World!</h3>
             </div>
                 <div className='buttonsContainer'>
                     <Button onClick={playAnimation} disabled={isPlaying}>Play</Button>
